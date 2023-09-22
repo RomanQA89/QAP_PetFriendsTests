@@ -29,14 +29,14 @@ def test_get_all_pets_with_valid_key(filter=''):
     assert len(result['pets']) > 0
 
 
-def test_add_new_pet_with_valid_data(name='Барбоскин', animal_type='двортерьер',
-                                     age='4', pet_photo='images/cat1.jpg'):
+def test_add_new_pet_with_valid_data(name='Барбос', animal_type='терьер',
+                                     age='49', pet_photo='images/cat1.jpg'):
     """Проверяем что можно добавить питомца с корректными данными"""
 
     # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
     pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
 
-    # Запрашиваем ключ api и сохраняем в переменую auth_key
+    # Запрашиваем ключ api и сохраняем в переменную auth_key
     _, auth_key = pf.get_api_key(valid_email, valid_password)
 
     # Добавляем питомца
@@ -71,7 +71,7 @@ def test_successful_delete_self_pet():
     assert pet_id not in my_pets.values()
 
 
-def test_successful_update_self_pet_info(name='Мурзик', animal_type='Котэ', age=5):
+def test_successful_update_self_pet_info(name='игорь', animal_type='кот', age=7):
     """Проверяем возможность обновления информации о питомце"""
 
     # Получаем ключ auth_key и список своих питомцев
