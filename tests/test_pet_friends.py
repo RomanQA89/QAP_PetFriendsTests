@@ -72,7 +72,7 @@ def test_successful_delete_self_pet():
     assert pet_id not in my_pets.values()
 
 
-def test_successful_update_self_pet_info(name='Hunny', animal_type='Kitty', age=1234):
+def test_successful_update_self_pet_info(name='den4ik', animal_type='dog', age=1):
     """Проверяем возможность обновления информации о питомце"""
 
     # Получаем ключ auth_key и список своих питомцев
