@@ -1,6 +1,6 @@
 import json
 import requests
-from requests_toolbelt.multipart import MultipartEncoder
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 
 class PetFriends:
@@ -28,7 +28,7 @@ class PetFriends:
 
     def get_list_of_pets(self, auth_key: json, filter: str = "") -> json:
         """Метод делает запрос к API сервера и возвращает статус запроса и результат в формате JSON
-        со списком наденных питомцев, совпадающих с фильтром. На данный момент фильтр может иметь
+        со списком найденных питомцев, совпадающих с фильтром. На данный момент фильтр может иметь
         либо пустое значение - получить список всех питомцев, либо 'my_pets' - получить список
         собственных питомцев"""
 
@@ -45,7 +45,7 @@ class PetFriends:
         return status, result
 
     def add_new_pet(self, auth_key: json, name: str, animal_type: str,
-                    age: int, pet_photo: str) -> json:
+                    age: str, pet_photo: str) -> json:
         """Метод отправляет (постит) на сервер данные о добавляемом питомце и возвращает статус
         запроса на сервер и результат в формате JSON с данными добавленного питомца"""
 
@@ -53,15 +53,12 @@ class PetFriends:
             fields={
                 'name': name,
                 'animal_type': animal_type,
-                'age': age
+                'age': age,
+                'pet_photo': (pet_photo, open(pet_photo, 'rb'), 'image/jpeg')
             })
-
         headers = {'auth_key': auth_key['key'], 'Content-Type': data.content_type}
-        file = [
-            ('pet_photo', (pet_photo, open(pet_photo, 'rb'), 'image/jpeg'))
-        ]
 
-        res = requests.post(self.base_url + 'api/pets', headers=headers, files=file)
+        res = requests.post(self.base_url + 'api/pets', headers=headers, data=data)
         status = res.status_code
         result = ""
         try:
