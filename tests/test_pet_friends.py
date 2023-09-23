@@ -33,9 +33,6 @@ def test_add_new_pet_with_valid_data(name='Барбос', animal_type='терь�
                                      age='49', pet_photo='images/cat1.jpg'):
     """Проверяем что можно добавить питомца с корректными данными"""
 
-    # Получаем полный путь изображения питомца и сохраняем в переменную pet_photo
-    # pet_photo = os.path.join(os.path.dirname(__file__), pet_photo)
-
     # Запрашиваем ключ api и сохраняем в переменную auth_key
     _, auth_key = pf.get_api_key(valid_email, valid_password)
 
@@ -87,4 +84,38 @@ def test_successful_update_self_pet_info(name='игор8', animal_type='кот9'
         assert result['name'] == name
     else:
         # если список питомцев пустой, то выкидываем исключение с текстом об отсутствии своих питомцев
+        raise Exception("There is no my pets")
+
+
+def test_add_new_pet_with_valid_data_without_photo(name='Jeronimo', animal_type='supermen',
+                                     age='77'):
+    """Проверяем что можно добавить питомца без фото с корректными данными"""
+
+    # Запрашиваем ключ api и сохраняем в переменную auth_key
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+
+    # Добавляем питомца
+    status, result = pf.add_new_pet_without_photo(auth_key, name, animal_type, age)
+
+    # Сверяем полученный ответ с ожидаемым результатом
+    assert status == 200
+    assert result['name'] == name
+
+
+def test_success_add_photo_of_pet(pet_photo='images/P1040103.jpg'):
+    """Проверяем что можно успешно добавить фото питомца"""
+
+    # Получаем ключ auth_key и список своих питомцев
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+    _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
+
+    # Если список своих питомцев не пустой, то отправляем данные серверу
+    if len(my_pets['pets']) > 0:
+        pet_id = my_pets['pets'][0]['id']
+        status, result = pf.add_photo_of_pet(auth_key, pet_id, pet_photo)
+
+        # Проверяем что статус ответа равен 200 и в списке питомцев есть питомец с обновленным фото
+        assert status == 200
+        assert result['pet_photo'] == pet_photo
+    else:
         raise Exception("There is no my pets")
