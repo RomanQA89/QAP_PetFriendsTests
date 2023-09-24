@@ -253,7 +253,7 @@ def test_unsuccessful_delete_self_pet_():
 
     # Проверяем - если список своих питомцев пустой, то добавляем нового и опять запрашиваем список своих питомцев
     if len(my_pets['pets']) == 0:
-        pf.add_new_pet(auth_key, "Суперкот", "кот", "3", "images/cat1.jpg")
+        pf.add_new_pet(auth_key, "Суперкот", "кот", "2", "images/cat1.jpg")
         _, my_pets = pf.get_list_of_pets(auth_key, "my_pets")
 
     # Берём id первого питомца из списка и отправляем запрос на удаление
