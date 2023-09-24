@@ -3,6 +3,8 @@ from settings import valid_email, valid_password, unvalid_email, unvalid_passwor
 
 pf = PetFriends()
 
+                             # Позитивные тесты.
+
 
 def test_get_api_key_for_valid_user(email=valid_email, password=valid_password):
     """ Проверяем что запрос api ключа возвращает статус 200 и в результате содержится слово key"""
@@ -86,9 +88,6 @@ def test_successful_update_self_pet_info(name='игорь', animal_type='кот'
         raise Exception("There is no my pets")
 
 
-"""Новые тесты."""
-
-
 def test_add_new_pet_with_valid_data_without_photo(name='Jeronimo', animal_type='supermen',
                                      age='77'):
     """Проверяем что можно добавить питомца без фото с корректными данными"""
@@ -123,7 +122,7 @@ def test_success_add_photo_of_pet(pet_photo='images/P1040103.jpg'):
         raise Exception("There is no my pets")
 
 
-"""Негативные проверки"""
+                             # Негативные тесты.
 
 
 def test_get_api_key_with_unvalid_email(email=unvalid_email, password=valid_password):

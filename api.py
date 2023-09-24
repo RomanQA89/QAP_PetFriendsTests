@@ -2,6 +2,8 @@ import json
 import requests
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
+                         # Методы позитивного тестирования.
+
 
 class PetFriends:
     """API библиотека к веб приложению Pet Friends"""
@@ -106,8 +108,6 @@ class PetFriends:
             result = res.text
         return status, result
 
-# Новые методы.
-
     def add_new_pet_without_photo(self, auth_key: json, name: str,
                                   animal_type: str, age: str) -> json:
         """Метод отправляет (постит) на сервер данные о добавляемом питомце без фото и возвращает статус
@@ -153,9 +153,11 @@ class PetFriends:
             result = res.text
         return status, result
 
+                        # Методы негативного тестирования.
+
     def add_new_pet_without_photo_with_unvalid_auth_key(self, auth_key: json, name: str,
                                   animal_type: str, age: str) -> json:
-        """Метод отправляет (постит) на сервер данные о добавляемом питомце без фото и с невалидным ключом"""
+        """Метод отправляет (постит) на сервер данные о добавляемом питомце без фото и с невалидным ключом."""
 
         data = MultipartEncoder(
             fields={
