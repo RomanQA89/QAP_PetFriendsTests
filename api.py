@@ -2,6 +2,7 @@ import json
 import requests
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
+
                          # Методы позитивного тестирования.
 
 
@@ -252,3 +253,5 @@ class PetFriends:
         except json.decoder.JSONDecodeError:
             result = res.text
         return status, result
+
+
